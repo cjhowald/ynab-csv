@@ -2,7 +2,6 @@
   "name": "ynab-csv",
   "version": "1.0.0",
   "description": "Tool for making your CSV files ready to import into YNAB",
-  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --port 3000",
@@ -10,31 +9,28 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/halloffame/ynab-csv.git"
+    "url": "https://github.com/cjhowald/ynab-csv.git"
   },
   "keywords": [
     "ynab",
     "csv"
   ],
   "dependencies": {
-    "@types/angular": "^1.5.19",
-    "@types/papaparse": "^4.1.28",
     "angular": "^1.5.8",
-    "babyparse": "^0.4.6",
     "bootstrap": "^3.3.7",
-    "express": "^4.11.2",
     "font-awesome": "^4.7.0",
-    "ng-annotate": "^1.2.1",
     "papaparse": "^4.1.2"
   },
-  "author": "Ryan Hall",
+  "author": "Colin Howald",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/halloffame/ynab-csv/issues"
+    "url": "https://github.com/cjhowald/ynab-csv/issues"
   },
-  "homepage": "https://github.com/halloffame/ynab-csv",
+  "homepage": "https://github.com/cjhowald/ynab-csv",
   "devDependencies": {
     "@types/angular": "^1.5.19",
+    "@types/papaparse": "^4.1.28",
+    "ng-annotate": "^1.2.1",
     "ng-annotate-loader": "^0.2.0",
     "ts-loader": "^1.2.0",
     "typescript": "^2.0.9",
