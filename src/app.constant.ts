@@ -1,0 +1,1 @@
+export const YNAB_COLS = ['Date', 'Payee', 'Category', 'Memo', 'Outflow', 'Inflow'];
