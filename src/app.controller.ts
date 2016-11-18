@@ -3,7 +3,6 @@ export class AppController {
     constructor(private $scope, private JsonConverter, private YNAB_COLS) {
         'ngInject';
 
-        console.log("controller loaded");
         this.$scope.$watch('data.source', function (newValue, oldValue) {
             if (newValue && newValue.length > 0) {
                 return JsonConverter.parseCsv(newValue);
@@ -15,7 +14,6 @@ export class AppController {
         };
     }
 
-    test = "foobar";
     angular_loaded = true;
     ynab_cols = this.YNAB_COLS;
     data = {};

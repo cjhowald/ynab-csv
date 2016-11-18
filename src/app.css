@@ -4,7 +4,7 @@ html, body, .dropzone {
 
 /* Loading helpers*/
 body:not(.angular_loaded) .show_on_load {
-    display: none;
+    /*display: none;*/
 }
 
 .angular_loaded .hide_on_load {

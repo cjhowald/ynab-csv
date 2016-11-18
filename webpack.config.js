@@ -1,4 +1,5 @@
 module.exports = {
+    devtool: 'inline-source-map',
     entry: {
         app: ["./src/app"]
     },
@@ -7,14 +8,17 @@ module.exports = {
     },
     module: {
         loaders: [
-            {
-                test: /\.ts/,
-                loaders: ['ng-annotate', 'ts'],
-                exclude: /node_modules/
-            }
+            {test: /\.ts/, loaders: ['ng-annotate', 'ts']},
+            {test: /\.css/, loaders: ['style', 'css']}
         ]
     },
     resolve: {
         extensions: ['', '.js', '.ts']
+    },
+    devServer: {
+        inline: true,
+        stats: {
+            chunks: false
+        }
     }
 };
