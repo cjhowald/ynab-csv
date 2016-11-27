@@ -1,40 +1,32 @@
+import { parse } from 'papaparse';
+import ParseResult = PapaParse.ParseResult;
+import {YNAB_COLS} from "./app.constant";
+
 export class JsonConverter {
 
-    private ynabCols = ['Date', 'Payee', 'Category', 'Memo', 'Outflow', 'Inflow'];
-
-    baseJson: any;
-
-    parseCsv(csv) {
-        return this.baseJson = Papa.parse(csv, {
+    csvToJson = (csv: string): ParseResult  => {
+        return parse(csv, {
             "header": true
         });
-    }
-    
-    fields() {
-        return this.baseJson.meta.fields;
-    };
-    
-    rows() {
-        return this.baseJson.data;
     };
 
-    convertedJson(limit, lookup) {
+    convertedJson = (json: ParseResult, limit, lookup) => {
         let value;
-        if (this.baseJson === null) {
+        if (json === null) {
             return null;
         }
         value = [];
-        if (this.baseJson.data) {
-            this.baseJson.data.forEach(function (row, index) {
+        if (json.data) {
+            json.data.forEach(function (row, index) {
                 let tmp_row;
                 if (!limit || index < limit) {
                     tmp_row = {};
-                    this.ynabCols.forEach(function (col) {
+                    YNAB_COLS.forEach(function (col) {
                         let cell, number;
                         cell = row[lookup[col]];
                         switch (col) {
                             case 'Outflow':
-                                number = this.numberfy(cell);
+                                number = JsonConverter.numberfy(cell);
                                 if (lookup['Outflow'] === lookup['Inflow']) {
                                     if (number < 0) {
                                         return tmp_row[col] = Math.abs(number);
@@ -44,7 +36,7 @@ export class JsonConverter {
                                 }
                                 break;
                             case 'Inflow':
-                                number = this.numberfy(cell);
+                                number = JsonConverter.numberfy(cell);
                                 if (lookup['Outflow'] === lookup['Inflow']) {
                                     if (number > 0) {
                                         return tmp_row[col] = number;
@@ -62,37 +54,35 @@ export class JsonConverter {
             });
         }
         return value;
-    }
+    };
 
-    convertedCsv(limit, lookup) {
+    convertedCsv = (json, limit, lookup) => {
         let string;
-        if (this.baseJson === null) {
+        if (json === null) {
             return null;
         }
-        string = this.ynabCols.join(',') + "\n";
-        this.convertedJson(limit, lookup).forEach(function (row) {
+        string = YNAB_COLS.join(',') + "\n";
+        this.convertedJson(json, limit, lookup).forEach(function (row) {
             let row_values;
             row_values = [];
-            this.ynabCols.forEach(function (col) {
+            YNAB_COLS.forEach(function (col) {
                 return row_values.push(row[col]);
             });
             return string += row_values.join(',') + "\n";
         });
         return string;
-    }
+    };
 
-    private static numberfy(val) {
-        let sign;
+    private static numberfy = (val) => {
         if (val == null) {
             val = '';
         }
         if (isNaN(val)) {
-            sign = val.match("-") || val.match(/\(.*\)/) ? -1 : 1;
             val = val.replace(/,/g, "");
-            return +(val.match(/\d+.?\d*/)[0]) * sign;
+            return Math.abs(+(val.match(/\d+.?\d*/)[0]));
         } else {
-            return val;
+            return Math.abs(val);
         }
-    }
+    };
 }
 

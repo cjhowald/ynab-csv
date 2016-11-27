@@ -1,3 +1,4 @@
+// TODO replace with dropzone.js
 export function DropzoneDirective() {
     return {
         transclude: true,

@@ -8,12 +8,12 @@ module.exports = {
     },
     module: {
         loaders: [
-            {test: /\.ts/, loaders: ['ng-annotate', 'ts']},
-            {test: /\.css/, loaders: ['style', 'css']}
+            {test: /\.ts/, loaders: ['ng-annotate-loader', 'ts-loader']},
+            {test: /\.css/, loaders: ['style-loader', 'css-loader']}
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.ts']
+        extensions: ['.js', '.ts']
     },
     devServer: {
         inline: true,

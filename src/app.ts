@@ -4,15 +4,16 @@ import {FilereadDirective} from "./fileread.directive";
 import {DropzoneDirective} from "./dropzone.directive";
 import {AppController} from "./app.controller";
 import {JsonConverter} from "./json-converter.service";
-import './vendor';
 import './app.css';
+import AppComponent from "./app.component";
 
 angular.module('app', [])
     .constant('YNAB_COLS', YNAB_COLS)
     .directive('fileread', FilereadDirective)
     .directive("dropzone", DropzoneDirective)
     .service('JsonConverter', JsonConverter)
-    .controller('AppController', AppController);
+    .controller('AppController', AppController)
+    .component('appComponent', AppComponent);
 
 angular.bootstrap(document, ['app'], {
     strictDi: true

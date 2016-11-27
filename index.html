@@ -2,90 +2,12 @@
 <html lang="en">
 <head>
     <title>YNAB CSV Converter</title>
-    <link rel="icon" type="image/png" href="images/icon16.png" />
+    <!--<link rel="icon" type="image/png" href="images/icon16.png" />-->
     <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<body ng-controller="AppController as vm" ng-class="{angular_loaded: vm.angular_loaded}" ng-cloak>
-
-{{ vm.ynab_cols }}
-{{ vm.test }}
-<input type="text" value="{{ vm.ynab_cols }}">
-<div id='header_nav' class='show_on_load'>
-    <div class='container'>
-        <!-- <h1>YNAB CSV</h1> -->
-        <div class='pull-right' ng-if='data_object.base_json'>
-            <!-- <div class='btn btn-default' ng-click='reloadApp()'><i class='fa fa-refresh'></i></div> -->
-            <div class='btn btn-primary' ng-click='downloadFile()'><i class='fa fa-cloud-download'></i> Save YNAB Data
-            </div>
-        </div>
-        <a href='https://github.com/cjhowald/ynab-csv' target='_blank' class='btn btn-default'><i
-                class='fa fa-github'></i> Fork me on Github</a>
-    </div>
-</div>
-
-<div dropzone='data.source'>
-    <div class='container show_on_load'>
-        <br>
-        <div id='upload_wrapper' ng-if='!data_object.base_json'>
-            <div id='drop_text'>Drop File</div>
-            <br>
-            <!-- <div class='btn btn-primary'>Or Choose</div> -->
-            <div class='fileUpload btn btn-primary'>
-                <span>Or Choose <i class='fa fa-folder-open'></i></span>
-                <input id='file' type='file' fileread='data.source'/>
-            </div>
-        </div>
-
-        <div id='tool_wrapper' ng-if='data_object.base_json'>
-
-            <div class="panel panel-default">
-                <div class="panel-heading"><strong>YNAB Data</strong> <em>(1st 10 rows)</em></div>
-                <div class='table-container'>
-                    <table class='table'>
-                        <thead>
-                        <tr>
-                            <th ng-repeat='col in ynab_cols'>
-                                {{col}}<br/>
-                                <select ng-model="ynab_map[col]" ng-options="f for f in data_object.fields()"></select>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat='row in export(10)'>
-                            <td ng-repeat='col in ynab_cols'>
-                                <span>{{row[col]}}</span>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="panel panel-default">
-                <div class="panel-heading"><strong>Source Data</strong> <em>(1st 10 rows)</em></div>
-                <div class='table-container'>
-                    <table class='table'>
-                        <thead>
-                        <tr>
-                            <th ng-repeat='col in data_object.fields()'>{{col}}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat='row in data_object.rows() | limitTo:10'>
-                            <td ng-repeat='col in data_object.fields()'>{{row[col]}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!--<div id='angular_is_loading'>-->
-<!--<div class='loading_text'><i class="fa fa-spinner fa-spin"></i> Loading...</div>-->
-<!--</div>-->
+<body>
+<app-component></app-component>
 </body>
 </html>
