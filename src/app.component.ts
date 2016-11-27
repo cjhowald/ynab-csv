@@ -67,12 +67,12 @@ const AppComponent: ng.IComponentOptions = {
                         <table class='table'>
                             <thead>
                             <tr>
-                                <th ng-repeat='col in $ctrl.json.meta.fields'>{{col}}</th>
+                                <th ng-repeat='col in $ctrl.json.meta.fields track by $index'>{{col}}</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat='row in $ctrl.json.data | limitTo:10'>
-                                <td ng-repeat='col in $ctrl.json.meta.fields'>{{row[col]}}</td>
+                                <td ng-repeat='col in $ctrl.json.meta.fields track by $index'>{{row[col]}}</td>
                             </tr>
                             </tbody>
                         </table>
