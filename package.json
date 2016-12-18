@@ -18,8 +18,7 @@
   "dependencies": {
     "angular": "^1.5.8",
     "font-awesome": "^4.7.0",
-    "papaparse": "^4.1.2",
-    "webpack": "^1.13.3"
+    "papaparse": "^4.1.2"
   },
   "author": "Colin Howald",
   "license": "MIT",
@@ -28,6 +27,7 @@
   },
   "homepage": "https://github.com/cjhowald/ynab-csv",
   "devDependencies": {
+    "webpack": "^1.13.3",
     "@types/angular": "^1.5.19",
     "@types/papaparse": "^4.1.28",
     "css-loader": "^0.26.0",
