@@ -6,52 +6,28 @@ export class JsonConverter {
 
     csvToJson = (csv: string): ParseResult  => {
         return parse(csv, {
-            "header": true
+            header: true,
+            dynamicTyping: true
         });
     };
 
     convertedJson = (json: ParseResult, limit, lookup) => {
-        let value;
-        if (json === null) {
+        let value = [];
+        if (!(json && json.data)) {
             return null;
         }
-        value = [];
-        if (json.data) {
-            json.data.forEach(function (row, index) {
-                let tmp_row;
-                if (!limit || index < limit) {
-                    tmp_row = {};
-                    YNAB_COLS.forEach(function (col) {
-                        let cell, number;
-                        cell = row[lookup[col]];
-                        switch (col) {
-                            case 'Outflow':
-                                number = JsonConverter.numberfy(cell);
-                                if (lookup['Outflow'] === lookup['Inflow']) {
-                                    if (number < 0) {
-                                        return tmp_row[col] = Math.abs(number);
-                                    }
-                                } else {
-                                    return tmp_row[col] = number;
-                                }
-                                break;
-                            case 'Inflow':
-                                number = JsonConverter.numberfy(cell);
-                                if (lookup['Outflow'] === lookup['Inflow']) {
-                                    if (number > 0) {
-                                        return tmp_row[col] = number;
-                                    }
-                                } else {
-                                    return tmp_row[col] = number;
-                                }
-                                break;
-                            default:
-                                return tmp_row[col] = cell;
-                        }
-                    });
-                    return value.push(tmp_row);
-                }
-            });
+        for (let i = 0; i < json.data.length && (!limit || i < limit); i++) {
+          let row = json.data[i];
+          let rowConverted = {};
+          YNAB_COLS.forEach((col) => {
+              let cell;
+              cell = row[lookup[col]];
+              if (col === 'Outflow' && cell < 0) {
+                  return rowConverted[col] = Math.abs(cell);
+              }
+              return rowConverted[col] = cell;
+          });
+          value.push(rowConverted);
         }
         return value;
     };
@@ -78,17 +54,5 @@ export class JsonConverter {
         return str;
       }
       return str.replace(/,/g, '')
-    };
-
-    private static numberfy = (val) => {
-        if (val == null) {
-            val = '';
-        }
-        if (isNaN(val)) {
-            val = val.replace(/,/g, "");
-            return Math.abs(+(val.match(/\d+.?\d*/)[0]));
-        } else {
-            return Math.abs(val);
-        }
     };
 }
