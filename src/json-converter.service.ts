@@ -66,11 +66,18 @@ export class JsonConverter {
             let row_values;
             row_values = [];
             YNAB_COLS.forEach(function (col) {
-                return row_values.push(row[col]);
+                return row_values.push(JsonConverter.stripCommas(row[col]));
             });
             return string += row_values.join(',') + "\n";
         });
         return string;
+    };
+
+    private static stripCommas = (str: String) => {
+      if (!str || typeof str !== 'string') {
+        return str;
+      }
+      return str.replace(/,/g, '')
     };
 
     private static numberfy = (val) => {
@@ -85,4 +92,3 @@ export class JsonConverter {
         }
     };
 }
-
