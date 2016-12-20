@@ -2,7 +2,6 @@ import ParseResult = PapaParse.ParseResult;
 import {JsonConverter} from "./json-converter.service";
 export class AppController {
 
-    angular_loaded = true;
     data = { source: null };
     json: ParseResult;
     jsonConverted;

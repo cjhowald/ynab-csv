@@ -3,7 +3,7 @@ import {AppController} from "./app.controller";
 // TODO breakdown into smaller components
 const AppComponent: ng.IComponentOptions = {
     controller: AppController,
-    template: `<section class="angular_loaded" ng-cloak> 
+    template: `<section ng-cloak> 
     {{ $ctrl.YNAB_COLS }}
     {{ $ctrl.test }}
     <input type="text" value="{{ $ctrl.YNAB_COLS }}">

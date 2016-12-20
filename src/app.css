@@ -2,15 +2,6 @@ html, body, .dropzone {
     height: 100%;
 }
 
-/* Loading helpers*/
-body:not(.angular_loaded) .show_on_load {
-    /*display: none;*/
-}
-
-.angular_loaded .hide_on_load {
-    display: none;
-}
-
 #angular_is_loading {
     position: fixed;
     top: 0;
@@ -25,12 +16,6 @@ body:not(.angular_loaded) .show_on_load {
     box-shadow: 0 0 10px rgba(0, 0, 0, .5);
     transition: all 2s;
     -webkit-transition: all 2s;
-}
-
-body.angular_loaded #angular_is_loading {
-    display: none;
-    top: 3000px;
-    bottom: -3000px;
 }
 
 /* Header */
