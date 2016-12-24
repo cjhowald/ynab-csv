@@ -2,8 +2,8 @@ import {AppController} from "./app.controller";
 
 // TODO breakdown into smaller components
 const AppComponent: ng.IComponentOptions = {
-    controller: AppController,
-    template: `<section ng-cloak> 
+  controller: AppController,
+  template: `<section ng-cloak>
     {{ $ctrl.YNAB_COLS }}
     {{ $ctrl.test }}
     <input type="text" value="{{ $ctrl.YNAB_COLS }}">
@@ -12,7 +12,8 @@ const AppComponent: ng.IComponentOptions = {
             <!-- <h1>YNAB CSV</h1> -->
             <div class='pull-right' ng-if='$ctrl.json'>
                 <!-- <div class='btn btn-default' ng-click='reloadApp()'><i class='fa fa-refresh'></i></div> -->
-                <div class='btn btn-primary' ng-click='$ctrl.downloadFile()'><i class='fa fa-cloud-download'></i> Save YNAB
+                <div class='btn btn-primary' ng-click='$ctrl.downloadFile()'><i class='fa fa-cloud-download'></i> Save
+                    YNAB
                     Data
                 </div>
             </div>

@@ -9,13 +9,11 @@ import './app.css';
 import AppComponent from "./app.component";
 
 angular.module('app', [])
-    .constant('YNAB_COLS', YNAB_COLS)
-    .directive('fileread', FilereadDirective)
-    .directive("dropzone", DropzoneDirective)
-    .service('JsonConverter', JsonConverter)
-    .controller('AppController', AppController)
-    .component('appComponent', AppComponent);
+  .constant('YNAB_COLS', YNAB_COLS)
+  .directive('fileread', FilereadDirective)
+  .directive("dropzone", DropzoneDirective)
+  .service('JsonConverter', JsonConverter)
+  .controller('AppController', AppController)
+  .component('appComponent', AppComponent);
 
-angular.bootstrap(document, ['app'], {
-    strictDi: true
-});
+angular.bootstrap(document, ['app']);
