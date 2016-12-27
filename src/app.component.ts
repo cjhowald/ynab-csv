@@ -7,14 +7,11 @@ const AppComponent: ng.IComponentOptions = {
     {{ $ctrl.YNAB_COLS }}
     {{ $ctrl.test }}
     <input type="text" value="{{ $ctrl.YNAB_COLS }}">
-    <div id='header_nav' class='show_on_load'>
+    <div id='header_nav'>
         <div class='container'>
-            <!-- <h1>YNAB CSV</h1> -->
             <div class='pull-right' ng-if='$ctrl.json'>
-                <!-- <div class='btn btn-default' ng-click='reloadApp()'><i class='fa fa-refresh'></i></div> -->
                 <div class='btn btn-primary' ng-click='$ctrl.downloadFile()'><i class='fa fa-cloud-download'></i> Save
-                    YNAB
-                    Data
+                    YNAB Data
                 </div>
             </div>
             <a href='https://github.com/cjhowald/ynab-csv' target='_blank' class='btn btn-default'><i
@@ -22,7 +19,7 @@ const AppComponent: ng.IComponentOptions = {
         </div>
     </div>
 
-    <div dropzone="$ctrl.data.source">
+    <div dropzone="$ctrl.data">
         <div class='container show_on_load'>
             <br>
             <div id='upload_wrapper' ng-if='!$ctrl.json'>
@@ -31,7 +28,7 @@ const AppComponent: ng.IComponentOptions = {
                 <!-- <div class='btn btn-primary'>Or Choose</div> -->
                 <div class='fileUpload btn btn-primary'>
                     <span>Or Choose <i class='fa fa-folder-open'></i></span>
-                    <input id='file' type='file' fileread='$ctrl.data.source'/>
+                    <input id='file' type='file' fileread='$ctrl.data'/>
                 </div>
             </div>
 
@@ -42,21 +39,21 @@ const AppComponent: ng.IComponentOptions = {
                     <div class='table-container'>
                         <table class='table'>
                             <thead>
-                            <tr>
-                                <th ng-repeat='col in $ctrl.YNAB_COLS'>
-                                    {{col}}<br/>
-                                    <select ng-model="$ctrl.ynab_map[col]"
-                                            ng-options="f for f in $ctrl.json.meta.fields"
-                                            ng-change="$ctrl.convertJson()"></select>
-                                </th>
-                            </tr>
+                              <tr>
+                                  <th ng-repeat='col in $ctrl.YNAB_COLS track by $index'>
+                                      {{col}}<br/>
+                                      <select ng-model="$ctrl.ynab_map[col]"
+                                              ng-options="f for f in $ctrl.json.meta.fields"
+                                              ng-change="$ctrl.convertJson()"></select>
+                                  </th>
+                              </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat='row in $ctrl.jsonConverted'>
-                                <td ng-repeat='col in $ctrl.YNAB_COLS'>
-                                    <span>{{row[col]}}</span>
-                                </td>
-                            </tr>
+                              <tr ng-repeat='row in $ctrl.jsonConverted track by $index'>
+                                  <td ng-repeat='col in $ctrl.YNAB_COLS'>
+                                      <span>{{row[col]}}</span>
+                                  </td>
+                              </tr>
                             </tbody>
                         </table>
                     </div>
@@ -79,7 +76,6 @@ const AppComponent: ng.IComponentOptions = {
                         </table>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

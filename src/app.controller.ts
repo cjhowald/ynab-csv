@@ -2,7 +2,7 @@ import ParseResult = PapaParse.ParseResult;
 import {JsonConverter} from "./json-converter.service";
 export class AppController {
 
-  data = {source: null};
+  data;
   json: ParseResult;
   jsonConverted;
   ynab_map = {
@@ -18,8 +18,7 @@ export class AppController {
   constructor(private $scope, private JsonConverter: JsonConverter, private YNAB_COLS, private $log) {
     'ngInject';
 
-    $log.debug();
-    this.$scope.$watch(() => this.data.source, (newValue, oldValue) => {
+    this.$scope.$watch(() => this.data, (newValue, oldValue) => {
       if (newValue && newValue !== oldValue && newValue.length) {
         this.json = JsonConverter.csvToJson(newValue);
         this.convertJson();

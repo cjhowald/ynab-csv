@@ -4,11 +4,24 @@ import {YNAB_COLS} from "./app.constant";
 
 export class JsonConverter {
 
+  private FIELD_MISMATCH = 'FieldMismatch';
+  private TOO_FEW_FIELDS = 'TooFewFields';
+
   csvToJson = (csv: string): ParseResult => {
-    return parse(csv, {
-      header: true,
-      dynamicTyping: true
+    let csvTruncated = csv;
+    let result = JsonConverter.parseCsv(csv);
+    // strip out extraneous rows before the header row
+    while (result.errors && result.errors[0].row === 0 && result.errors[0].type === this.FIELD_MISMATCH) {
+      csvTruncated = csvTruncated.split('\n').slice(1).join('\n');
+      result = JsonConverter.parseCsv(csvTruncated);
+    }
+    // strip out remaining rows that failed to parse due to too few fields
+    result.errors.forEach(({ code, row }) => {
+      if (code === this.TOO_FEW_FIELDS) {
+        result.data.splice(row,1);
+      }
     });
+    return result;
   };
 
   convertedJson = (json: ParseResult, limit, lookup) => {
@@ -49,10 +62,17 @@ export class JsonConverter {
     return string;
   };
 
-  private static stripCommas = (str: String) => {
+  private static stripCommas = (str: string) => {
     if (!str || typeof str !== 'string') {
       return str;
     }
     return str.replace(/,/g, '')
   };
+
+  private static parseCsv = (csv: string) => {
+    return parse(csv, {
+      header: true,
+      dynamicTyping: true
+    })
+  }
 }
