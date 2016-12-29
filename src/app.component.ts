@@ -25,7 +25,6 @@ const AppComponent: ng.IComponentOptions = {
             <div id='upload_wrapper' ng-if='!$ctrl.json'>
                 <div id='drop_text'>Drop File</div>
                 <br>
-                <!-- <div class='btn btn-primary'>Or Choose</div> -->
                 <div class='fileUpload btn btn-primary'>
                     <span>Or Choose <i class='fa fa-folder-open'></i></span>
                     <input id='file' type='file' fileread='$ctrl.data'/>
