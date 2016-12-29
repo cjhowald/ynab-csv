@@ -15,7 +15,7 @@ export class AppController {
   };
   limit = 20;
 
-  constructor(private $scope, private JsonConverter: JsonConverter, private YNAB_COLS, private $log) {
+  constructor(private $scope, private JsonConverter: JsonConverter, private YNAB_COLS) {
     'ngInject';
 
     this.$scope.$watch(() => this.data, (newValue, oldValue) => {

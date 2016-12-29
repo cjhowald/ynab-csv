@@ -27,12 +27,11 @@ module.exports = {
     extensions: ['.js', '.ts']
   },
   plugins: [
-    new ExtractTextPlugin({filename: 'bundle.css', disable: false, allChunks: true})
-  ],
-  devServer: {
-    inline: true,
-    stats: {
-      chunks: false
-    }
-  }
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: true
+      }
+    }),
+    new ExtractTextPlugin({ filename: 'bundle.css', disable: false, allChunks: true })
+  ]
 };

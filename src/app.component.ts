@@ -1,6 +1,5 @@
 import {AppController} from "./app.controller";
 
-// TODO breakdown into smaller components
 const AppComponent: ng.IComponentOptions = {
   controller: AppController,
   template: `<section ng-cloak>
