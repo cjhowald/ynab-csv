@@ -13,8 +13,9 @@ const AppComponent: ng.IComponentOptions = {
                     YNAB Data
                 </div>
             </div>
-            <a href='https://github.com/cjhowald/ynab-csv' target='_blank' class='btn btn-default'><i
-                    class='fa fa-github'></i> Fork me on Github</a>
+            <a href='https://github.com/cjhowald/ynab-csv' target='_blank' class='btn btn-default'>
+            <i class="fa fa-github" aria-hidden="true"></i>
+            </i> Fork me on Github</a>
         </div>
     </div>
 
