@@ -11,7 +11,7 @@ export class JsonConverter {
     let csvTruncated = csv;
     let result = JsonConverter.parseCsv(csv);
     // strip out extraneous rows before the header row
-    while (result.errors && result.errors[0].row === 0 && result.errors[0].type === this.FIELD_MISMATCH) {
+    while (this.parseError(result)) {
       csvTruncated = csvTruncated.split('\n').slice(1).join('\n');
       result = JsonConverter.parseCsv(csvTruncated);
     }
@@ -22,6 +22,13 @@ export class JsonConverter {
       }
     });
     return result;
+  };
+
+  parseError = (result: ParseResult) => {
+    const tooFewField = result.meta && result.meta.fields.length < 3; // minimum 3 fields: date, amount, payee
+    // based on the header row, the first row of data had too many or too few fields
+    const firstRowFailed = result.errors && result.errors[0].row === 0 && result.errors[0].type === this.FIELD_MISMATCH;
+    return tooFewField || firstRowFailed;
   };
 
   convertedJson = (json: ParseResult, limit, lookup) => {
