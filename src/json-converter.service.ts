@@ -42,8 +42,8 @@ export class JsonConverter {
       YNAB_COLS.forEach((col) => {
         let cell;
         cell = row[lookup[col]];
-        if (col === 'Outflow' && cell < 0) {
-          return rowConverted[col] = Math.abs(cell);
+        if (col === 'Outflow' || col === 'Inflow') {
+          cell = JsonConverter.toPositiveFloat(cell);
         }
         return rowConverted[col] = cell;
       });
@@ -81,5 +81,11 @@ export class JsonConverter {
       header: true,
       dynamicTyping: true
     })
+  }
+
+  private static toPositiveFloat(str: any): number {
+    if (!str) return 0.0;
+    if (!isNaN(str)) { return Math.abs(str); }
+    return Math.abs(parseFloat(JsonConverter.stripCommas(str)));
   }
 }
