@@ -43,7 +43,14 @@ export class JsonConverter {
         let cell;
         cell = row[lookup[col]];
         if (col === 'Outflow' || col === 'Inflow') {
-          cell = JsonConverter.toPositiveFloat(cell);
+          cell = JsonConverter.toFloat(cell);
+          if (lookup['Outflow'] === lookup['Inflow']) {
+            if (col === 'Outflow') {
+              cell = cell < 0 && Math.abs(cell) || '';
+            } else {
+              cell = cell > 0 && cell || '';
+            }
+          }
         }
         return rowConverted[col] = cell;
       });
@@ -83,9 +90,11 @@ export class JsonConverter {
     })
   }
 
-  private static toPositiveFloat(str: any): number {
+  private static toFloat(str: any): number {
     if (!str) return 0.0;
-    if (!isNaN(str)) { return Math.abs(str); }
-    return Math.abs(parseFloat(JsonConverter.stripCommas(str)));
+    if (!isNaN(str)) { return str; }
+    const isNegative = str.match('-') || str.match(/\(.*\)/);
+    const sign = isNegative && -1 || 1;
+    return parseFloat(JsonConverter.stripCommas(str).match(/\d+.?\d*/)[0]) * sign;
   }
 }
