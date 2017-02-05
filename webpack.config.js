@@ -12,14 +12,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/, exclude: /node_modules/,
+        test: /\.css$/,
+        exclude: /node_modules/,
         loader: ExtractTextPlugin.extract({
           loader: 'css-loader?sourceMap'
         })
       },
       {
         test: /\.ts/,
-        loaders: ['ng-annotate-loader', 'ts-loader']
+        loaders: ['ng-annotate-loader', 'ts-loader'],
+        exclude: "node_modules"
       }
     ]
   },

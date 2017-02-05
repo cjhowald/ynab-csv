@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Tool for making your CSV files ready to import into YNAB",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start",
+    "test:ci": "karma start --browsers PhantomJS --single-run",
     "start": "webpack-dev-server --port 3000 --debug",
-    "build": "webpack --config webpack-prod.config.js"
+    "build": "webpack --config webpack-prod.config.js",
+    "coverage": "http-server coverage/**/html/ -o"
   },
   "repository": {
     "type": "git",
@@ -28,12 +30,21 @@
   "homepage": "https://github.com/cjhowald/ynab-csv",
   "devDependencies": {
     "@types/angular": "^1.5.19",
+    "@types/angular-mocks": "^1.5.9",
+    "@types/jasmine": "^2.5.41",
     "@types/papaparse": "^4.1.28",
+    "angular-mocks": "^1.5.9",
     "css-loader": "^0.26.0",
     "extract-text-webpack-plugin": "^2.0.0-beta",
+    "jasmine": "^2.5.3",
+    "karma": "^1.4.1",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-typescript": "^2.1.7",
     "ng-annotate": "^1.2.1",
     "ng-annotate-loader": "^0.2.0",
-    "style-loader": "^0.13.1",
     "ts-loader": "^1.2.0",
     "typescript": "^2.0.9",
     "webpack": "v2.2.0-rc.3",
