@@ -2,6 +2,7 @@ import {parse} from 'papaparse';
 import ParseResult = PapaParse.ParseResult;
 import {YNAB_COLS} from "./app.constant";
 
+
 export class JsonConverter {
 
   private FIELD_MISMATCH = 'FieldMismatch';
@@ -16,11 +17,7 @@ export class JsonConverter {
       result = JsonConverter.parseCsv(csvTruncated);
     }
     // strip out remaining rows that failed to parse due to too few fields
-    result.errors.forEach(({ code, row }) => {
-      if (code === this.TOO_FEW_FIELDS) {
-        result.data.splice(row,1);
-      }
-    });
+    result.data = result.data.filter((o, index) => !result.errors.find(({code, row}) => code === this.TOO_FEW_FIELDS && row === index));
     return result;
   };
 
@@ -76,21 +73,21 @@ export class JsonConverter {
     return string;
   };
 
-  private static stripCommas = (str: string) => {
+  static stripCommas = (str: string) => {
     if (!str || typeof str !== 'string') {
       return str;
     }
     return str.replace(/,/g, '')
   };
 
-  private static parseCsv = (csv: string) => {
+  static parseCsv = (csv: string) => {
     return parse(csv, {
       header: true,
       dynamicTyping: true
     })
-  }
+  };
 
-  private static toFloat(str: any): number {
+  static toFloat(str: any): number {
     if (!str) return 0.0;
     if (!isNaN(str)) { return str; }
     const isNegative = str.match('-') || str.match(/\(.*\)/);
