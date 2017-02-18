@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "lib": ["es6", "dom"],
     "target": "ES5",
     "module": "commonjs",
     "sourceMap": true,
