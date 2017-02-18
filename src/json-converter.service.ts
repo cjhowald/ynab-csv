@@ -47,6 +47,8 @@ export class JsonConverter {
             } else {
               cell = cell > 0 && cell || '';
             }
+          } else {
+            cell = Math.abs(cell);
           }
         }
         return rowConverted[col] = cell;
