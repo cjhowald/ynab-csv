@@ -8,7 +8,7 @@ export class JsonConverter {
   private FIELD_MISMATCH = 'FieldMismatch';
   private TOO_FEW_FIELDS = 'TooFewFields';
 
-  csvToJson = (csv: string): ParseResult => {
+  csvToJson(csv: string): ParseResult {
     let csvTruncated = csv;
     let result = JsonConverter.parseCsv(csv);
     // strip out extraneous rows before the header row
@@ -21,14 +21,14 @@ export class JsonConverter {
     return result;
   };
 
-  parseError = (result: ParseResult) => {
+  parseError(result: ParseResult): boolean {
     const tooFewField = result.meta && result.meta.fields.length < 3; // minimum 3 fields: date, amount, payee
     // based on the header row, the first row of data had too many or too few fields
     const firstRowFailed = result.errors && result.errors[0].row === 0 && result.errors[0].type === this.FIELD_MISMATCH;
     return tooFewField || firstRowFailed;
   };
 
-  convertedJson = (json: ParseResult, limit, lookup) => {
+  convertedJson(json: ParseResult, limit: number, lookup): any[] {
     let value = [];
     if (!(json && json.data)) {
       return null;
@@ -58,7 +58,7 @@ export class JsonConverter {
     return value;
   };
 
-  convertedCsv = (json: ParseResult, limit, lookup) => {
+  convertedCsv(json: ParseResult, limit, lookup) {
     let string;
     if (json === null) {
       return null;
@@ -75,14 +75,14 @@ export class JsonConverter {
     return string;
   };
 
-  static stripCommas = (str: string) => {
+  static stripCommas(str: string) {
     if (!str || typeof str !== 'string') {
       return str;
     }
     return str.replace(/,/g, '')
   };
 
-  static parseCsv = (csv: string) => {
+  static parseCsv(csv: string) {
     return parse(csv, {
       header: true,
       dynamicTyping: true
