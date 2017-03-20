@@ -31,7 +31,7 @@ describe('Json converter', () => {
       expect(result.data.length).toBe(2);
     });
 
-    it('should convert proper csv to json', () => {
+    it('should convert valid csv to json', () => {
       expect(converter.csvToJson(mock.csv).data).toEqual(mock.json.data);
     });
   });
@@ -61,7 +61,7 @@ describe('Json converter', () => {
   describe('convertedJson', () => {
     it('should return null if json does not exist with data', () => {
       expect(converter.convertedJson(null,10,null)).toBe(null);
-      expect(converter.convertedJson({ data: null, errors: null, meta: null },10,null)).toBe(null);
+      expect(converter.convertedJson(mock.emptyResult,10,null)).toBe(null);
     });
 
     it('should convert json according to the lookup', () => {
@@ -83,9 +83,18 @@ describe('Json converter', () => {
       expect(JsonConverter.toFloat).toHaveBeenCalledWith(-9.99);
       expect(JsonConverter.toFloat).toHaveBeenCalledWith('');
       expect(JsonConverter.toFloat).toHaveBeenCalledWith('-5,555.55');
-
-
     });
+  });
+
+  describe('convertedCsv', () => {
+    it('should return an empty string if json is null or has no data', () => {
+      expect(converter.convertedCsv(null, mock.limit, mock.lookup)).toBe('');
+      expect(converter.convertedCsv(mock.emptyResult, mock.limit, mock.lookup)).toBe('');
+    });
+
+    it('should call convertedJson and parse the result back into a csv string', () => {
+      expect(converter.convertedCsv(converter.csvToJson(mock.csv), 100, mock.lookup).trim()).toEqual(mock.csvConverted.trim());
+    })
   });
 
   ////////
@@ -119,6 +128,9 @@ describe('Json converter', () => {
 02/03/2017;02/03/2017;"SEPA-Direct Debit (ELV)";KAISERS TENGELMANN GMBH;ELV61291198 01.02 19.00 ME8 VIELEN DANK;DE0000000000000000000;XXXXXXXXXX;IC-2349874357;3409853048043850;DE340958340958;;;;;;-9.99;;EUR
 02/02/2017;02/02/2017;"SEPA-Standing Order";Mietkonto Pandastr. 10, 10a/ Panda platz 5;RINP Dauerauftrag Rent for Pandas in Pandaplatz 5;DE09340958340580;XXXXXXXXX;;;;;;;;;-5,555.55;;EUR
       `,
+      csvConverted: `Date,Payee,Category,Memo,Outflow,Inflow
+02/03/2017,ELV61291198 01.02 19.00 ME8 VIELEN DANK,,KAISERS TENGELMANN GMBH,9.99,0
+02/02/2017,RINP Dauerauftrag Rent for Pandas in Pandaplatz 5,,"Mietkonto Pandastr. 10, 10a/ Panda platz 5",5555.55,0`,
       csvPositiveNegative: `Booking date;Value date;Transaction Type;Beneficiary / Originator;Payment Details;IBAN;BIC;Customer Reference;Mandate Reference;Creditor ID;Compensation amount;Original Amount;Ultimate creditor;Number of transactions;Number of cheques;Amount;Currency
 02/03/2017;02/03/2017;"SEPA-Direct Debit (ELV)";KAISERS TENGELMANN GMBH;ELV61291198 01.02 19.00 ME8 VIELEN DANK;DE0000000000000000000;XXXXXXXXXX;IC-2349874357;3409853048043850;DE340958340958;;;;;;-9.99;EUR
 02/02/2017;02/02/2017;"SEPA-Standing Order";Mietkonto Pandastr. 10, 10a/ Panda platz 5;RINP Dauerauftrag Rent for Pandas in Pandaplatz 5;DE09340958340580;XXXXXXXXX;;;;;;;;;5,555.55;EUR
@@ -188,7 +200,8 @@ describe('Json converter', () => {
         Memo: 'Beneficiary / Originator',
         Outflow: 'Amount',
         Inflow: 'Amount'
-      }
+      },
+      emptyResult: {data: null, errors: null, meta: null}
     };
   }
 });

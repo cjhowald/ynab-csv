@@ -1113,6 +1113,10 @@ di@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/di/-/di-0.0.1.tgz#806649326ceaa7caa3306d75d985ea2748ba913c"
 
+diff@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-1.4.0.tgz#7f28d2eb9ee7b15a97efd89ce63dcfdaa3ccbabf"
+
 diffie-hellman@^5.0.0:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/diffie-hellman/-/diffie-hellman-5.0.2.tgz#b5835739270cfe26acf632099fded2a07f209e5e"
@@ -2243,6 +2247,13 @@ karma-coverage, karma-coverage@^1.1.1:
 karma-jasmine:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/karma-jasmine/-/karma-jasmine-1.1.0.tgz#22e4c06bf9a182e5294d1f705e3733811b810acf"
+
+karma-jasmine-diff-reporter:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/karma-jasmine-diff-reporter/-/karma-jasmine-diff-reporter-1.0.0.tgz#74a738394f8509c41f05ed991f933df71de6a27f"
+  dependencies:
+    chalk "^1.1.0"
+    diff "^1.4.0"
 
 karma-phantomjs-launcher:
   version "1.0.2"

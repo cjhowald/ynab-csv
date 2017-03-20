@@ -42,6 +42,7 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.1.0",
+    "karma-jasmine-diff-reporter": "^1.0.0",
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-typescript": "^2.1.7",
     "ng-annotate": "^1.2.1",

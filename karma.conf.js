@@ -8,7 +8,7 @@ module.exports = function(config) {
     preprocessors: {
       "src/**/*.ts": ["karma-typescript"]
     },
-    reporters: ["progress", "karma-typescript"],
+    reporters: ["progress", "karma-typescript", 'jasmine-diff'],
     browsers: ["Chrome"]
   });
 };

@@ -1,4 +1,4 @@
-import {parse} from 'papaparse';
+import {parse, unparse} from 'papaparse';
 import ParseResult = PapaParse.ParseResult;
 import {YNAB_COLS} from "./app.constant";
 
@@ -28,7 +28,7 @@ export class JsonConverter {
     return tooFewField || firstRowFailed;
   };
 
-  convertedJson(json: ParseResult, limit: number, lookup): any[] {
+  convertedJson(json: ParseResult, limit: number, lookup): Array<Object> {
     let value = [];
     if (!(json && json.data)) {
       return null;
@@ -58,21 +58,9 @@ export class JsonConverter {
     return value;
   };
 
-  convertedCsv(json: ParseResult, limit, lookup) {
-    let string;
-    if (json === null) {
-      return null;
-    }
-    string = YNAB_COLS.join(',') + "\n";
-    this.convertedJson(json, limit, lookup).forEach(function (row) {
-      let row_values;
-      row_values = [];
-      YNAB_COLS.forEach(function (col) {
-        return row_values.push(JsonConverter.stripCommas(row[col]));
-      });
-      return string += row_values.join(',') + "\n";
-    });
-    return string;
+  convertedCsv(json: ParseResult, limit, lookup): string {
+    if (!json || !json.data) { return ''; }
+    return unparse(this.convertedJson(json, limit, lookup), {newline: '\n'});
   };
 
   static stripCommas(str: string) {
