@@ -2,10 +2,7 @@ import {AppController} from "./app.controller";
 
 const AppComponent: ng.IComponentOptions = {
   controller: AppController,
-  template: `<section ng-cloak>
-    {{ $ctrl.YNAB_COLS }}
-    {{ $ctrl.test }}
-    <input type="text" value="{{ $ctrl.YNAB_COLS }}">
+  template: `<section ng-cloak class="section">
     <div id='header_nav'>
         <div class='container'>
             <div class='pull-right' ng-if='$ctrl.json'>
